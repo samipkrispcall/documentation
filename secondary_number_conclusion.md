@@ -1,31 +1,93 @@
 # Multi-Number Handling – Decision Report
 
-## **1. Create Contact**
+---
 
-- Use **both primary and secondary numbers** for contact searching.
+## 1. Create Contact
 
-### **1.1 If no match is found:**
-- Create a new contact (including all secondary phone numbers and secondary emails).
-
-### **1.2 If a match is found:**
-- How to handle if the number is found in the primary field of the CRM?
-    - *(To be discussed)*
-- How to handle if the number is found in a secondary/custom field of the CRM?
-    - *(To be discussed)*
+### Case 1: Contact not found in CRM
+- Create the contact  
+- Add secondary numbers if available  
 
 ---
 
-## **2. Update Contact**
+### Case 2: Contact found, no secondary numbers in KrispCall
+- Skip creation  
 
-### **2.1 Existing contact data should include:**
+---
+
+### Case 3: Contact found, secondary numbers in KrispCall but not in CRM
+- Add all secondary numbers to the existing CRM contact  
+
+---
+
+### Case 4: Contact found, secondary numbers exist in both KrispCall and CRM
+
+#### Scenario 1: CRM supports unlimited numbers
+
+**Options:**
+- Replace all CRM secondary numbers with KrispCall numbers  
+  → *Risk: Data loss in CRM*  
+
+- Append non-matching KrispCall secondary numbers  
+  → *Risk: Total number count may exceed limits (e.g., more than 6)*  
+
+---
+
+#### Scenario 2: CRM has fixed/custom number fields
+
+**Options:**
+- Replace all CRM secondary numbers with KrispCall numbers  
+  → *Risk: Data loss*  
+
+- Create a new contact  
+  → *Prevents data loss*
+
+  → *Risk: Duplicate Contact Existance*
+
+---
+
+### Case 5: Contact found, KrispCall has secondary numbers, CRM secondary numbers unknown
+
+**Options:**
+- Replace/create CRM secondary numbers with KrispCall numbers  
+  → *Risk: Data loss*  
+
+- Create a new contact  
+  → *Prevents data loss*  
+
+---
+
+## 2. Update Contact
+
+### 2.1 Existing Contact Data Should Include:
 - Primary number  
 - Secondary numbers  
 - Primary email  
 - Secondary emails  
 
-### **2.2 Merge Handling:**
-- Decide which numbers/emails to keep and which to remove from the combined data (KrispCall + CRM).  
-  - *(To be discussed)*
+---
+
+### 2.2 Merge Handling
+
+#### Case 1: CRM supports unlimited numbers
+
+**Options:**
+- Replace all CRM secondary numbers with KrispCall numbers  
+  → *Risk: Data loss*  
+
+- Replace matched numbers and append non-matching KrispCall secondary numbers  
+  → *Risk: Total number count may exceed limits (e.g., more than 6)*  
+
+---
+
+#### Case 2: CRM has fixed/custom number fields
+
+**Options:**
+- Replace all CRM secondary numbers with KrispCall numbers  
+  → *Risk: Data loss*  
+
+- Create a new contact  
+  → *Prevents data loss*  
 
 ---
 
